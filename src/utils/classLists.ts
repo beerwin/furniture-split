@@ -1,0 +1,96 @@
+const formTransitionClasses = ['transition-all', 'duration-300', 'transition-discrete']
+
+export const genericButtonClasses = [
+  ...formTransitionClasses,
+  'rounded-md',
+  'mx-2',
+  'px-2',
+  'py-1',
+  'shadow-md',
+  'hover:shadow-lg',
+  'focus:shadow-xl',
+  'shadow-neutral-500',
+  'disabled:opacity-40',
+  'disabled:cursor-not-allowed',
+]
+
+export const defaultButtonClasses = [
+  ...genericButtonClasses,
+  'text-white',
+  'bg-neutral-700',
+  'shadow-neutral-500',
+  'hover:bg-neutral-500',
+  'focus:bg-neutral-800',
+]
+
+export const actionButtonClasses = [
+  ...genericButtonClasses,
+  'text-white',
+  'bg-sky-700',
+  'hover:bg-sky-500',
+  'focus:bg-sky-800',
+  'shadow-sky-800',
+]
+
+export const dangerButtonClasses = [
+  ...genericButtonClasses,
+  'text-white',
+  'bg-red-700',
+  'shadow-red-800',
+  'hover:bg-red-500',
+  'focus:bg-red-800',
+]
+
+export const fieldClasses = [
+  ...formTransitionClasses,
+  'border-2',
+  'border-neutral-300',
+  'inset-shadow-sm',
+  'shadow-neutral-900',
+  'bg-white',
+  'px-2',
+  'rounded-md',
+  'mx-2',
+  'hover:border-neutral-500',
+  'focus:shadow-sky-800',
+  'focus:outline-2',
+  'focus:outline-sky-800',
+  'basis-full',
+]
+
+export const fieldErrorClasses = [
+  'border-red-900 hover:border-red-700 focus:outline-red-800 focus:shadow-red-800',
+]
+
+export const labelClasses = ['p-1', 'basis-full']
+
+export const fieldGroupClasses = [
+  'flex-none',
+  'basis-[30%]',
+  'flex',
+  'flex-wrap',
+  'justify-between',
+  'p-1',
+]
+
+export const fieldWrapperClasses = ['flex', 'flex-wrap', 'm-1', 'even:bg-neutral-200']
+
+export const cardClasses = ['shadow-2xl', 'bg-white', 'm-2', 'p-2', 'rounded-lg']
+
+export const h1Classes = ['text-2xl', 'm-2']
+
+export const h2Classes = ['text-xl', 'm-2']
+
+export const h3Classes = ['text-lg', 'm-2']
+
+export const menuItemClasses = [
+  'py-2',
+  'px-6',
+  'relative',
+  'group',
+  'hover:bg-sky-200',
+  'text-neutral-800',
+  'hover:text-neutral-900',
+  'cursor-pointer',
+  'transition-all',
+]
