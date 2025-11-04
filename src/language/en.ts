@@ -8,6 +8,12 @@ export const lng = {
     Open: 'Open',
     Cancel: 'Cancel',
     FileName: 'File name: ',
+    EnterName: 'Enter a name',
+    Name: 'Name: ',
+    OK: 'OK',
+    Yes: 'Yes',
+    Confirm: 'Confirm',
+    askForSave: 'Would you like to save changes?',
   },
   menu: {
     File: 'File',

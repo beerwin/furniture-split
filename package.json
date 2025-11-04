@@ -1,7 +1,7 @@
 {
   "name": "furniture-split",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Calculates the material need for furniture sheets.",
   "author": "Ervin Nagy",
