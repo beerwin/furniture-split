@@ -1,7 +1,7 @@
 {
   "name": "furniture-split",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Calculates the material need for furniture sheets.",
   "author": "Ervin Nagy",
@@ -17,8 +17,8 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.15",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@tailwindcss/vite": "^4.1.16",
+    "@vitejs/plugin-vue": "^6.0.1",
     "electron": "^35.7.5",
     "electron-builder": "^24.13.3",
     "tailwindcss": "^4.1.15",
