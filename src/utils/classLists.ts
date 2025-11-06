@@ -84,8 +84,6 @@ export const h2Classes = ['text-xl', 'm-2']
 export const h3Classes = ['text-lg', 'm-2']
 
 export const menuItemClasses = [
-  'py-2',
-  'px-6',
   'relative',
   'group',
   'hover:bg-sky-200',
@@ -93,4 +91,39 @@ export const menuItemClasses = [
   'hover:text-neutral-900',
   'cursor-pointer',
   'transition-all',
+]
+
+export const menuItemSeparatorClasses = [
+  'border-t',
+  'border-neutral-300',
+  'my-1',
+]
+
+export const menuItemButtonClasses = [
+  'py-2',
+  'px-6',
+  'flex',
+]
+
+export const menuItemLabelClasses = [
+  'flex-grow',
+  'mr-4',
+  'whitespace-nowrap',
+]
+
+export const menuItemActionButtonClasses = [
+  'flex-none',
+]
+
+export const dropDownMenuClasses = [
+  'absolute',
+  'bg-white',
+  'rounded-md',
+  'shadow-lg',
+  'py-2',
+  'top-full', 
+  'hidden',
+  'group-hover:block',
+  'transition-all',
+  'min-w-50',
 ]

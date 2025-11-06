@@ -22,6 +22,7 @@ export const lng = {
     FileSave: 'Save',
     FileSaveAs: 'Save As...',
     FileRecent: 'Recent',
+    FileExit: 'Exit',
   },
   cuts: {
     PageTitle: 'Furniture Sheet Calculator',

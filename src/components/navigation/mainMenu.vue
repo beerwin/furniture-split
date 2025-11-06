@@ -1,22 +1,18 @@
 <template>
   <nav class="pl-2">
     <ul class="flex">
-      <li :class="menuItemClasses">
+      <MenuItem>
         {{ getText('menu.File') }}
-        <ul
-          class="absolute bg-white rounded-md shadow-lg py-2 top-full -ml-6 hidden group-hover:block min-w-30 transition-all"
-        >
-          <li :class="menuItemClasses" @click="fileNewClick">
-            {{ getText('menu.FileNew') }}
-          </li>
-          <li :class="menuItemClasses" @click="fileOpenClick">
-            {{ getText('menu.FileOpen') }}
-          </li>
-          <li :class="menuItemClasses" @click="fileSaveAsClick">
-            {{ getText('menu.FileSaveAs') }}
-          </li>
-        </ul>
-      </li>
+        <template v-slot:submenu>
+          <ul :class="dropDownMenuClasses">
+            <MenuItem @click="fileNewClick" accesskey="Ctrl + N"> {{ getText('menu.FileNew') }} </MenuItem>            
+            <MenuItem @click="fileOpenClick" accesskey="Ctrl + O"> {{ getText('menu.FileOpen') }} </MenuItem>
+            <MenuItem @click="fileSaveAsClick" accesskey="Ctrl + S">{{ getText('menu.FileSaveAs') }}</MenuItem>
+            <MenuItem separator></MenuItem>
+            <MenuItem @click="fileExitClick" accesskey="Ctrl + Q">{{ getText('menu.FileExit') }}</MenuItem>
+          </ul>
+        </template>
+      </MenuItem>
     </ul>
   </nav>
   <PromptModal ref="promptForName" :value="formName">
@@ -36,7 +32,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useLangaugeStore } from '../../stores/language'
-import { menuItemClasses } from '../../utils/classLists'
+import { dropDownMenuClasses } from '../../utils/classLists'
 import { useCalculatorForm } from '../../stores/calculatorForm'
 import PromptModal from '../modals/promptModal.vue'
 import { useTemplateRef } from 'vue'
@@ -44,6 +40,8 @@ import TriStateConfirmationModal from '../modals/triStateConfirmationModal.vue'
 import { newForm, fileOpen, fileSaveAs } from '../../controller/cuts/cutsController'
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
+import MenuItem from '../lists/MenuItem.vue'
+import { ConfirmationModalState } from '../../types/dialogs/confirmationModalState'
 
 const languageStore = useLangaugeStore()
 const { getText } = languageStore
@@ -70,6 +68,27 @@ async function fileOpenClick() {
 async function fileSaveAsClick() {
   await fileSaveAs(promptForName.value as PromptModalInterface)
 }
+
+async function fileExitClick() {
+    window.ipcRenderer?.send('close-query');
+}
+
+window.ipcRenderer?.on('app-close-query', async () => {
+  if (!formState.isDirty()) {
+    window.ipcRenderer?.send('app-close-confirmed');
+    return;
+  }
+  const response = await askForSaveAs.value?.open();
+  if (response === ConfirmationModalState.Cancel) {
+    return;
+  }
+
+  if (response === ConfirmationModalState.Yes) {
+    await fileSaveAs(promptForName.value as PromptModalInterface);
+  }
+
+  window.ipcRenderer?.send('app-close-confirmed');
+});
 
 
 // window.ipcRenderer?.on('file.new', fileNewClick)

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, ipcMain } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
@@ -138,6 +138,21 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, 'index.html'))
   }
+
+  win.on('close', (e) => {
+    e.preventDefault()
+    win?.webContents.send('app-close-query')
+  })
+
+  ipcMain.on('close-query', (e) => {
+    e.preventDefault()
+    win?.webContents.send('app-close-query')
+  })
+
+  ipcMain.on('app-close-confirmed', () => {
+    win?.destroy()
+    win = null;
+  })
 
   createMainMenu();
 }

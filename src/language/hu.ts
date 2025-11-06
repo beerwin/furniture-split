@@ -22,6 +22,7 @@ export const lng = {
     FileSave: 'Mentés',
     FileSaveAs: 'Mentés másként...',
     FileRecent: 'Nemrég megnyitva',
+    FileExit: 'Kilépés',
   },
   cuts: {
     PageTitle: 'Bútorlap kalkulátor',
