@@ -107,12 +107,12 @@ export const menuItemButtonClasses = [
 
 export const menuItemLabelClasses = [
   'flex-grow',
-  'mr-4',
   'whitespace-nowrap',
 ]
 
 export const menuItemActionButtonClasses = [
   'flex-none',
+  'ml-4',
 ]
 
 export const dropDownMenuClasses = [

@@ -40,7 +40,7 @@ onUnmounted(() => {
             <span :class="menuItemLabelClasses">
                 <slot></slot>
             </span>
-            <span :class="menuItemActionButtonClasses">{{ accesskey }}</span>
+            <span v-if="accesskey" :class="menuItemActionButtonClasses">{{ accesskey }}</span>
         </a>
         <slot name="submenu"></slot>
     </li>
