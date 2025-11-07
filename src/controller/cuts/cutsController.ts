@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import { open, saveAs } from '../../repository/cuts/cutsLocalfileRepository'
 import { useCalculatorForm } from '../../stores/calculatorForm'
 import { ConfirmationModalState } from '../../types/dialogs/confirmationModalState'
@@ -26,7 +27,7 @@ export async function newForm(
   formState.reset()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  formState.setDirty(false)
+  nextTick(() => formState.setDirty(false)) 
 }
 
 export async function fileOpen(

@@ -1,19 +1,18 @@
 import type { PiniaPluginContext } from 'pinia'
 import 'pinia'
 
-export function storeDirty({ store }: PiniaPluginContext) {
-  // Set initial state
-  store.$state.dirty = false
+const dirtyStates: Map<string, boolean> = new Map()
 
-  // Add methods to the store
-  const isDirty = () => store.$state.dirty
+export function storeDirty({ store }: PiniaPluginContext) {
+  dirtyStates.set(store.$id, false)
+
+  const isDirty = () => dirtyStates.get(store.$id) || false
   const setDirty = (value: boolean) => {
-    store.$state.dirty = value
+    dirtyStates.set(store.$id, value)
   }
 
-  // Subscribe to changes
   store.$subscribe(() => {
-    store.$state.dirty = true
+    dirtyStates.set(store.$id, true)
   })
 
   return {
