@@ -1,5 +1,5 @@
 export async function doFileOpen(): Promise<string | undefined> {
-  const result = await window.ipcRenderer?.openDialog('showOpenDialog', {
+  const result = await window.api?.openDialog('showOpenDialog', {
     title: 'Open a file',
     properties: ['openFile'],
     filters: [
@@ -13,12 +13,12 @@ export async function doFileOpen(): Promise<string | undefined> {
     return;
   }
 
-  const fc = await window.ipcRenderer?.readFile(result.filePaths[0]);
+  const fc = await window.api?.readFile(result.filePaths[0]);
   return fc
 }
 
 export async function doFileSave(name: string, data: string) {
-  const result = await window.ipcRenderer?.openDialog('showSaveDialog', {
+  const result = await window.api?.openDialog('showSaveDialog', {
     title: 'Save a file',
     defaultPath: name,
     filters: [
@@ -32,5 +32,5 @@ export async function doFileSave(name: string, data: string) {
     return;
   }
 
-  await window.ipcRenderer?.saveFile(result.filePath, data);
+  await window.api?.saveFile(result.filePath, data);
 }

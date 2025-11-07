@@ -70,12 +70,12 @@ async function fileSaveAsClick() {
 }
 
 async function fileExitClick() {
-    window.ipcRenderer?.send('close-query');
+    window.api?.send('close-query');
 }
 
-window.ipcRenderer?.on('app-close-query', async () => {
+window.api?.on('app-close-query', async () => {
   if (!formState.isDirty()) {
-    window.ipcRenderer?.send('app-close-confirmed');
+    window.api?.send('app-close-confirmed');
     return;
   }
   const response = await askForSaveAs.value?.open();
@@ -87,20 +87,8 @@ window.ipcRenderer?.on('app-close-query', async () => {
     await fileSaveAs(promptForName.value as PromptModalInterface);
   }
 
-  window.ipcRenderer?.send('app-close-confirmed');
+  window.api?.send('app-close-confirmed');
 });
-
-
-// window.ipcRenderer?.on('file.new', fileNewClick)
-
-// window.ipcRenderer?.on('file.open', fileOpenClick)
-
-// window.ipcRenderer?.on('file.saveAs', fileSaveAsClick)
-
-// window.ipcRenderer?.on('language.change', (event, payload) => {
-//   console.log('Language change requested:', payload);
-//   setLanguage(payload);
-// })
 
 defineExpose({
   fileNewClick,
