@@ -47,7 +47,12 @@ export async function fileOpen(
     }
   }
 
-  formState.fromFileContent(await open())
+  const s = await open()
+  if (!s) {
+    return
+  }
+
+  formState.fromFileContent(s)
 }
 
 export async function fileSaveAs(promptForName: PromptModalInterface) {

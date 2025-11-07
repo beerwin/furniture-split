@@ -1,7 +1,8 @@
-import { app, BrowserWindow, Menu, ipcMain } from 'electron'
+import { app, BrowserWindow, Menu, ipcMain, dialog, Dialog, IpcMainInvokeEvent } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import fs from 'node:fs'
 // import hu from './hu.ts'
 // import en from './en.ts'
 
@@ -152,6 +153,19 @@ function createWindow() {
   ipcMain.on('app-close-confirmed', () => {
     win?.destroy()
     win = null;
+  })
+
+  ipcMain.handle('show-dialog', (_event: IpcMainInvokeEvent, method: keyof Dialog, params) => {
+    console.log(typeof params);
+    return (dialog[method] as any)(params)
+  })
+
+  ipcMain.handle('load-file', async (_event, filename: string) => {
+    return fs.promises.readFile(filename, { encoding: 'utf-8' });
+  })
+
+  ipcMain.handle('save-file', async (_event: IpcMainInvokeEvent, params) => {
+    return fs.promises.writeFile(params.filename, params.content, { encoding: 'utf-8' });
   })
 
   createMainMenu();

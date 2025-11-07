@@ -18,7 +18,15 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
     const [channel, ...omit] = args
     return ipcRenderer.invoke(channel, ...omit)
   },
-
+  openDialog(method: string, params: any): Promise<any> {
+    return ipcRenderer.invoke('show-dialog', method, params)
+  },
+  readFile(filename: string): Promise<string> {
+    return ipcRenderer.invoke('load-file', filename)
+  },
+  saveFile(filename: string, content: string): Promise<void> {
+    return ipcRenderer.invoke('save-file', { filename, content })
+  }
   // You can expose other APTs you need here.
   // ...
 })
