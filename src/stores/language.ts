@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { lng as hu } from '../language/hu'
 import { lng as en } from '../language/en'
 import { getValue } from '../utils/getValue'
+import { retrieveLanguage, storeLanguage } from '../repository/language/languageRepository'
 
 export const useLangaugeStore = defineStore('langauge', () => {
   const language = ref('en')
@@ -29,6 +30,7 @@ export const useLangaugeStore = defineStore('langauge', () => {
         
         break
     }
+    storeLanguage(newLanguage)
   }
 
   function format(s: string, replacementValue: string | number): string {
@@ -56,7 +58,7 @@ export const useLangaugeStore = defineStore('langauge', () => {
     return s
   }
 
-  setLanguage('en')
+  setLanguage(retrieveLanguage())
 
   return {
     language,
