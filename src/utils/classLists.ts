@@ -10,6 +10,7 @@ export const genericButtonClasses = [
   'hover:shadow-lg',
   'focus:shadow-xl',
   'shadow-neutral-500',
+  'dark:shadow-neutral-800',
   'disabled:opacity-40',
   'disabled:cursor-not-allowed',
 ]
@@ -18,9 +19,14 @@ export const defaultButtonClasses = [
   ...genericButtonClasses,
   'text-white',
   'bg-neutral-700',
+  'dark:bg-neutral-600',
   'shadow-neutral-500',
+  'dark:shadow-neutral-800',
   'hover:bg-neutral-500',
+  'dark:hover:shadow-neutral-900',
+  'dark:hover:bg-neutral-400',
   'focus:bg-neutral-800',
+  'dark:focus:bg-neutral-700',
 ]
 
 export const actionButtonClasses = [
@@ -45,13 +51,15 @@ export const fieldClasses = [
   ...formTransitionClasses,
   'border-2',
   'border-neutral-300',
+  'dark:border-gray-600',
   'inset-shadow-sm',
   'shadow-neutral-900',
   'bg-white',
+  'dark:bg-gray-900',
   'px-2',
   'rounded-md',
   'mx-2',
-  'hover:border-neutral-500',
+  'hover:border-neutral-700',
   'focus:shadow-sky-800',
   'focus:outline-2',
   'focus:outline-sky-800',
@@ -73,9 +81,9 @@ export const fieldGroupClasses = [
   'p-1',
 ]
 
-export const fieldWrapperClasses = ['flex', 'flex-wrap', 'm-1', 'even:bg-neutral-200']
+export const fieldWrapperClasses = ['flex', 'flex-wrap', 'm-1', 'even:bg-neutral-200', 'dark:even:bg-gray-800', 'rounded-md']
 
-export const cardClasses = ['shadow-2xl', 'bg-white', 'm-2', 'p-2', 'rounded-lg']
+export const cardClasses = ['shadow-2xl', 'bg-white', 'dark:bg-gray-900', 'm-2', 'p-2', 'rounded-lg']
 
 export const h1Classes = ['text-2xl', 'm-2']
 
@@ -87,8 +95,11 @@ export const menuItemClasses = [
   'relative',
   'group',
   'hover:bg-sky-200',
+  'dark:hover:bg-sky-700',
   'text-neutral-800',
+  'dark:text-neutral-200',
   'hover:text-neutral-900',
+  'hover:dark:text-white',
   'cursor-pointer',
   'transition-all',
 ]
@@ -96,6 +107,7 @@ export const menuItemClasses = [
 export const menuItemSeparatorClasses = [
   'border-t',
   'border-neutral-300',
+  'dark:border-neutral-700',
   'my-1',
 ]
 
@@ -118,12 +130,15 @@ export const menuItemActionButtonClasses = [
 export const dropDownMenuClasses = [
   'absolute',
   'bg-white',
+  'dark:bg-gray-800',
   'rounded-md',
   'shadow-lg',
+  'shadow-neutral-400',
+  'dark:shadow-gray-900',
   'py-2',
   'top-full', 
   'hidden',
   'group-hover:block',
   'transition-all',
-  'min-w-50',
+  'min-w-80',
 ]

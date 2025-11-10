@@ -69,13 +69,13 @@
       </button>
       <ValidationObserver value-key="parts" :errors="errors" :value="parts">
         <div
-          class="max-h-[50vh] overflow-auto py-2 my-2 border-1 inset-shadow-sm inset-shadow-neutral-300 border-neutral-100 rounded-md bg-neutral-100"
+          class="max-h-[50vh] overflow-auto py-2 my-2 border-1 inset-shadow-sm inset-shadow-neutral-300 dark:inset-shadow-gray-950 border-neutral-100 dark:border-gray-900 rounded-md bg-neutral-100 dark:bg-gray-900"
         >
           <div
             v-for="(part, index) in parts"
             :key="part.id"
             :class="fieldWrapperClasses"
-            class="border-t-2 border-neutral-100"
+            class="border-t-2 border-neutral-100 dark:border-gray-800 pt-2 mt-2"
           >
             <ValidationObserver :valueKey="`parts.${index}`" :errors="errors">
               <div :class="fieldGroupClasses">

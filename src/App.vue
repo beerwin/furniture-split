@@ -7,13 +7,13 @@ import MainMenu from './components/navigation/mainMenu.vue'
 </script>
 
 <template>
-  <div class="bg-white shadow-2xl shadow-neutral-400 flex">
+  <div class="bg-white dark:bg-gray-900 shadow-2xl shadow-neutral-400 dark:shadow-gray-950 text-neutral-900 dark:text-neutral-200 flex">
     <div class="flex-grow-1">
       <MainMenu></MainMenu>
     </div>
     <LanguageSelector class="flex-grow-0"></LanguageSelector>
   </div>
-  <div>
+  <div class="bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-200">
     <CutsForm></CutsForm>
     <CutsResults></CutsResults>
   </div>

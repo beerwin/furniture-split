@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-none 2xl:w-[15%] xl:w-[18%] lg:w-[23%] md:w-[30%] sm:w-[40%] w-[90%] shadow-neutral-300 shadow-md border-1 border-neutral-100 hover:shadow-neutral-500 hover:border-neutral-200"
+    class="flex-none 2xl:w-[15%] xl:w-[18%] lg:w-[23%] md:w-[30%] sm:w-[40%] w-[90%] shadow-neutral-300 dark:shadow-gray-950 shadow-md border-1 border-neutral-100 dark:border-gray-950 hover:shadow-neutral-500 dark:hover:shadow-gray-800 hover:border-neutral-200 dark:hover:border-gray-800 rounded-md overflow-hidden m-2"
   >
     <h3 :class="h3Classes">{{ title }}</h3>
     <img class="w-full" :src="image" />
