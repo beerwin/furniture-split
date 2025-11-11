@@ -151,11 +151,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { pack } from '../../service/cuts/cuts'
-import { renderSVG } from '../../service/svg'
 import { useCalculatorForm } from '../../stores/calculatorForm'
 import { useLangaugeStore } from '../../stores/language'
-import { useResultStore } from '../../stores/resultStore'
 import { storeToRefs } from 'pinia'
 import {
   actionButtonClasses,
@@ -170,28 +167,21 @@ import {
   h2Classes,
   labelClasses,
 } from '../../utils/classLists'
-import { validator } from '../../service/validator/validator'
-import { type ValidationInfo } from '../../types/validation/ValidationInfo'
-import { required } from '../../service/validator/rules/required'
-import { fits } from '../../service/validator/rules/fits'
-import { min } from '../../service/validator/rules/min'
 import { computed, ref, useTemplateRef } from 'vue'
 import ValidationObserver from '../validation/validationObserver.vue'
 import type { Part } from '../../types/cuts/part'
 import ConfirmationModal from '../modals/confirmationModal.vue'
+import { calculateCuts } from '../../controller/cuts/cutsController'
 
 const formStore = useCalculatorForm()
 const languageStore = useLangaugeStore()
-const resultStore = useResultStore()
 const confirmationModal = useTemplateRef('confirmationModal')
 
 const { sheetLength, sheetWidth, kerf, waste, parts, formName } = storeToRefs(formStore)
 
-const { addPart, removePart, updateSheetSizes } = formStore
+const { addPart, removePart, updateSheetSizes, errorBag } = formStore
 
 const { getText } = languageStore
-
-const { setResults } = resultStore
 
 const itemToRemove = ref()
 
@@ -207,156 +197,7 @@ const rawSheetSizes = ref({
 const selectedSheetSize = ref('2440x1220')
 
 const errors = computed(() => {
-  const validation = new Map([
-    [
-      'sheetLength',
-      {
-        data: sheetLength.value,
-        rules: [
-          required,
-          {
-            ...min,
-            condition: 1,
-          },
-        ],
-        messages: new Map([
-          ['min', languageStore.getText('cuts.ErrorSheetLengthMustBePositive')],
-          ['required', languageStore.getText('cuts.ErrorRequired')],
-        ]),
-      },
-    ],
-    [
-      'sheetWidth',
-      {
-        data: sheetWidth.value,
-        rules: [
-          required,
-          {
-            ...min,
-            condition: 1,
-          },
-        ],
-        messages: new Map([
-          ['min', languageStore.getText('cuts.ErrorSheetWidthMustBePositive')],
-          ['required', languageStore.getText('cuts.ErrorRequired')],
-        ]),
-      },
-    ],
-    [
-      'kerf',
-      {
-        data: kerf.value,
-        rules: [
-          required,
-          {
-            ...min,
-            condition: 0,
-          },
-        ],
-        messages: new Map([
-          ['min', languageStore.getText('cuts.ErrorKerfSizeCantBeNegative')],
-          ['required', languageStore.getText('cuts.ErrorRequired')],
-        ]),
-      },
-    ],
-    [
-      'waste',
-      {
-        data: waste.value,
-        rules: [
-          required,
-          {
-            ...min,
-            condition: 0,
-          },
-        ],
-        messages: new Map([
-          ['min', languageStore.getText('cuts.ErrorWasteCantBeNegative')],
-          ['required', languageStore.getText('cuts.ErrorRequired')],
-        ]),
-      },
-    ],
-    [
-      'parts',
-      {
-        data: parts.value,
-        rules: [
-          {
-            ...min,
-            condition: 1,
-          },
-        ],
-        messages: new Map([['min', languageStore.getText('cuts.ErrorAtLeastOnePieceIsRequired')]]),
-      },
-    ],
-  ]) as Map<string, ValidationInfo>
-
-  for (const part in parts.value) {
-    validation.set(`parts.${part}.name`, {
-      data: parts.value[part]?.name,
-      rules: [required],
-      messages: new Map([['required', languageStore.getText('cuts.ErrorRequired')]]),
-    } as ValidationInfo)
-
-    validation.set(`parts.${part}.width`, {
-      data: parts.value[part]?.width,
-      rules: [
-        required,
-        {
-          ...min,
-          condition: 1,
-        },
-      ],
-      messages: new Map([
-        ['required', languageStore.getText('cuts.ErrorRequired')],
-        [
-          'min',
-          languageStore.getText('cuts.ErrorPieceWidthMustbePositive', [
-            parts.value[part]?.name ?? '',
-          ]),
-        ],
-      ]),
-    })
-
-    validation.set(`parts.${part}.height`, {
-      data: parts.value[part]?.height,
-      rules: [
-        required,
-        {
-          ...min,
-          condition: 1,
-        },
-      ],
-      messages: new Map([
-        ['required', languageStore.getText('cuts.ErrorRequired')],
-        [
-          'min',
-          languageStore.getText('cuts.ErrorPieceHeightMustbePositive', [
-            parts.value[part]?.name ?? '',
-          ]),
-        ],
-      ]),
-    })
-
-    validation.set(`parts.${part}`, {
-      data: parts.value[part],
-      rules: [
-        required,
-        {
-          ...fits,
-          condition: `${sheetLength.value - waste.value * 2}x${sheetWidth.value - waste.value * 2}`,
-        },
-      ],
-      messages: new Map([
-        [
-          'fits',
-          languageStore.getText('cuts.ErrorNoFitWithoutRotation', [parts.value[part]?.name ?? '']),
-        ],
-      ]),
-    })
-  }
-
-  return validator(validation)
+  return errorBag()
 })
 
 function getFieldClasses(errorState: boolean): string[] {
@@ -387,17 +228,6 @@ async function askRemovePart(part: Part) {
 }
 
 function calculate() {
-  const wasteBreak = waste.value * 2
-
-  const results = pack(
-    sheetWidth.value - wasteBreak,
-    sheetLength.value - wasteBreak,
-    kerf.value,
-    parts.value,
-  )
-
-  const svgs = renderSVG(sheetLength.value, sheetWidth.value, kerf.value, waste.value, results)
-
-  setResults(svgs)
+  calculateCuts()
 }
 </script>

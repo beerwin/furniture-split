@@ -5,6 +5,8 @@ import { ConfirmationModalState } from '../../types/dialogs/confirmationModalSta
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
 import { useResultStore } from '../../stores/resultStore'
+import { pack } from '../../service/cuts/cuts'
+import { renderSVG } from '../../service/svg'
 
 export async function newForm(
   askForSaveAs: TriStateConfirmationInterface,
@@ -107,4 +109,25 @@ export async function closeQuery(
   }
 
   window.api?.send('app-close-confirmed');
+}
+
+export function calculateCuts() {
+  const formState = useCalculatorForm()
+  const resultStore = useResultStore()
+
+  const {sheetWidth, sheetLength, kerf, waste, parts} = formState;
+
+  const { setResults } = resultStore
+  const wasteBreak = waste * 2
+
+  const results = pack(
+    sheetWidth - wasteBreak,
+    sheetLength - wasteBreak,
+    kerf,
+    parts,
+  )
+
+  const svgs = renderSVG(sheetLength, sheetWidth, kerf, waste, results)
+
+  setResults(svgs)
 }
