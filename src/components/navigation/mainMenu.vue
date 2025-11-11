@@ -52,11 +52,10 @@ import { useCalculatorForm } from '../../stores/calculatorForm'
 import PromptModal from '../modals/promptModal.vue'
 import { useTemplateRef } from 'vue'
 import TriStateConfirmationModal from '../modals/triStateConfirmationModal.vue'
-import { newForm, fileOpen, fileSaveAs } from '../../controller/cuts/cutsController'
+import { newForm, fileOpen, fileSaveAs, closeQuery } from '../../controller/cuts/cutsController'
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
 import MenuItem from '../lists/MenuItem.vue'
-import { ConfirmationModalState } from '../../types/dialogs/confirmationModalState'
 
 const languageStore = useLangaugeStore()
 const { languageOptions, language } = storeToRefs(languageStore);
@@ -90,20 +89,10 @@ async function fileExitClick() {
 }
 
 window.api?.on('app-close-query', async () => {
-  if (!formState.isDirty()) {
-    window.api?.send('app-close-confirmed');
-    return;
-  }
-  const response = await askForSaveAs.value?.open();
-  if (response === ConfirmationModalState.Cancel) {
-    return;
-  }
-
-  if (response === ConfirmationModalState.Yes) {
-    await fileSaveAs(promptForName.value as PromptModalInterface);
-  }
-
-  window.api?.send('app-close-confirmed');
+  await closeQuery(
+    askForSaveAs.value as TriStateConfirmationInterface,
+    promptForName.value as PromptModalInterface,
+  );
 });
 
 defineExpose({

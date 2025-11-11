@@ -86,3 +86,25 @@ export async function fileSaveAs(promptForName: PromptModalInterface) {
   // @ts-ignore
   nextTick(() => formState.setDirty(false)) 
 }
+
+export async function closeQuery(
+  askForSaveAs: TriStateConfirmationInterface, 
+  promptForName: PromptModalInterface
+): Promise<void> {
+  const formState = useCalculatorForm();
+
+  if (!formState.isDirty()) {
+    window.api?.send('app-close-confirmed');
+    return;
+  }
+  const response = await askForSaveAs?.open();
+  if (response === ConfirmationModalState.Cancel) {
+    return;
+  }
+
+  if (response === ConfirmationModalState.Yes) {
+    await fileSaveAs(promptForName as PromptModalInterface);
+  }
+
+  window.api?.send('app-close-confirmed');
+}
