@@ -1,6 +1,5 @@
 export const lng = {
   generic: {
-    ChooseLanguage: 'Language: ',
     ErrorItemNotFound: 'Item Not found',
     ErrorItemAlreadyExists: 'Item already exists',
     No: 'No',
@@ -23,6 +22,7 @@ export const lng = {
     FileSaveAs: 'Save As...',
     FileRecent: 'Recent',
     FileExit: 'Exit',
+    Language: 'Language',
   },
   cuts: {
     PageTitle: 'Furniture Sheet Calculator',

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import CutsForm from './components/cuts/cuts-form.vue'
-import LanguageSelector from './components/language/language-selector.vue'
 import CutsResults from './components/cuts/cuts-results.vue'
 import MainMenu from './components/navigation/mainMenu.vue'
 
@@ -11,7 +10,6 @@ import MainMenu from './components/navigation/mainMenu.vue'
     <div class="flex-grow-1">
       <MainMenu></MainMenu>
     </div>
-    <LanguageSelector class="flex-grow-0"></LanguageSelector>
   </div>
   <div class="bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-200">
     <CutsForm></CutsForm>

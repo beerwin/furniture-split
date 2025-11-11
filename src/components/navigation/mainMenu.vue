@@ -1,7 +1,7 @@
 <template>
   <nav class="pl-2">
     <ul class="flex">
-      <MenuItem>
+      <MenuItem item-type="text-only">
         {{ getText('menu.File') }}
         <template v-slot:submenu>
           <ul :class="dropDownMenuClasses">
@@ -10,6 +10,21 @@
             <MenuItem @click="fileSaveAsClick" accesskey="Ctrl + S">{{ getText('menu.FileSaveAs') }}</MenuItem>
             <MenuItem separator></MenuItem>
             <MenuItem @click="fileExitClick" accesskey="Ctrl + Q">{{ getText('menu.FileExit') }}</MenuItem>
+          </ul>
+        </template>
+      </MenuItem>
+      <MenuItem item-type="text-only">
+        {{ getText('menu.Language') }}
+        <template v-slot:submenu>
+          <ul :class="dropDownMenuClasses">
+            <MenuItem 
+              v-for="(item, index) in languageOptions" 
+              :key="index" @click="setLanguage(index)" 
+              item-type="checkbox" 
+              :checked="language === index"
+            >
+              {{ item }}
+            </MenuItem>
           </ul>
         </template>
       </MenuItem>
@@ -44,7 +59,8 @@ import MenuItem from '../lists/MenuItem.vue'
 import { ConfirmationModalState } from '../../types/dialogs/confirmationModalState'
 
 const languageStore = useLangaugeStore()
-const { getText } = languageStore
+const { languageOptions, language } = storeToRefs(languageStore);
+const { getText, setLanguage } = languageStore
 
 const formState = useCalculatorForm()
 const promptForName = useTemplateRef('promptForName')

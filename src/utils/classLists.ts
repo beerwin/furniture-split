@@ -117,6 +117,12 @@ export const menuItemButtonClasses = [
   'flex',
 ]
 
+export const menuItemCheckboxClasses = [
+  'flex-none',
+  'mr-2',
+  'w-4',
+]
+
 export const menuItemLabelClasses = [
   'flex-grow',
   'whitespace-nowrap',

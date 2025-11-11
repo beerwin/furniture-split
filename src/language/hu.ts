@@ -1,6 +1,5 @@
 export const lng = {
   generic: {
-    ChooseLanguage: 'Nyelv: ',
     ErrorItemNotFound: 'Az elem nem tellható.',
     ErrorItemAlreadyExists: 'Az elem már létezik',
     No: 'Nem',
@@ -23,6 +22,7 @@ export const lng = {
     FileSaveAs: 'Mentés másként...',
     FileRecent: 'Nemrég megnyitva',
     FileExit: 'Kilépés',
+    Language: 'Nyelv',
   },
   cuts: {
     PageTitle: 'Bútorlap kalkulátor',
