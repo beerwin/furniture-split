@@ -26,6 +26,10 @@ export const lng = {
     Sheets: 'Lapok',
     SheetsCalculateSheets: 'Lapok számítása',
     SheetsAddPiece: 'Elem hozzáadása',
+    Theme: 'Téma',
+    ThemeLight: 'Világos',
+    ThemeDark: 'Sötét',
+    ThemeSystem: 'Operációs rendszer beállítás',
   },
   cuts: {
     PageTitle: 'Bútorlap kalkulátor',

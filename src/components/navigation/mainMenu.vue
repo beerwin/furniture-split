@@ -28,6 +28,22 @@
         </template>
       </MenuItem>
       <MenuItem item-type="text-only">
+        {{ getText('menu.Theme') }}
+        <template v-slot:submenu>
+          <ul :class="dropDownMenuClasses">
+            <MenuItem item-type="checkbox" :checked="theme === 'light'" @click="setThemeLight">
+              {{ getText('menu.ThemeLight') }}
+            </MenuItem>
+            <MenuItem item-type="checkbox" :checked="theme === 'dark'" @click="setThemeDark">
+              {{ getText('menu.ThemeDark') }}
+            </MenuItem>
+            <MenuItem item-type="checkbox" :checked="theme === 'system'" @click="setThemeSystem">
+              {{ getText('menu.ThemeSystem') }} 
+            </MenuItem>
+          </ul>
+        </template>
+      </MenuItem>
+      <MenuItem item-type="text-only">
         {{ getText('menu.Language') }}
         <template v-slot:submenu>
           <ul :class="dropDownMenuClasses">
@@ -70,10 +86,14 @@ import { newForm, fileOpen, fileSaveAs, closeQuery, calculateCuts } from '../../
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
 import MenuItem from '../lists/MenuItem.vue'
+import { useThemeStore } from '../../stores/themeStore'
 
 const languageStore = useLangaugeStore()
 const { languageOptions, language } = storeToRefs(languageStore);
 const { getText, setLanguage } = languageStore
+const themeStore = useThemeStore()
+const { theme } = storeToRefs(themeStore);
+const { setTheme } = themeStore;
 
 const formState = useCalculatorForm()
 const promptForName = useTemplateRef('promptForName')
@@ -124,6 +144,18 @@ window.api?.on('app-close-query', async () => {
     promptForName.value as PromptModalInterface,
   );
 });
+
+function setThemeLight() {
+  setTheme('light');
+}
+
+function setThemeDark() {
+  setTheme('dark');
+}
+
+function setThemeSystem() {
+  setTheme('system'); 
+}
 
 defineExpose({
   fileNewClick,

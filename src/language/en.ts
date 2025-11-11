@@ -26,6 +26,10 @@ export const lng = {
     Sheets: 'Sheets',
     SheetsCalculateSheets: 'Calculate Sheets',
     SheetsAddPiece: 'Add Part',
+    Theme: 'Theme',
+    ThemeLight: 'Light',
+    ThemeDark: 'Dark',
+    ThemeSystem: 'OS Setting',
   },
   cuts: {
     PageTitle: 'Furniture Sheet Calculator',

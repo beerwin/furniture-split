@@ -2,6 +2,13 @@
 import CutsForm from './components/cuts/cuts-form.vue'
 import CutsResults from './components/cuts/cuts-results.vue'
 import MainMenu from './components/navigation/mainMenu.vue'
+import { useThemeStore } from './stores/themeStore'
+
+const themeStore = useThemeStore();
+
+const { setTheme, getSavedThemeSetting } = themeStore;
+
+setTheme(getSavedThemeSetting());
 
 </script>
 
