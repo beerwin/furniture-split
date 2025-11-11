@@ -156,7 +156,6 @@ function createWindow() {
   })
 
   ipcMain.handle('show-dialog', (_event: IpcMainInvokeEvent, method: keyof Dialog, params) => {
-    console.log(typeof params);
     return (dialog[method] as any)(params)
   })
 
