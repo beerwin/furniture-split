@@ -54,6 +54,10 @@ export async function fileOpen(
   }
 
   formState.fromFileContent(s)
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  nextTick(() => formState.setDirty(false)) 
 }
 
 export async function fileSaveAs(promptForName: PromptModalInterface) {
@@ -69,4 +73,8 @@ export async function fileSaveAs(promptForName: PromptModalInterface) {
     formState.setFormName(fName ?? '')
   }
   await saveAs(formState.toFileContent())
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  nextTick(() => formState.setDirty(false)) 
 }
