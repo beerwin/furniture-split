@@ -8,8 +8,13 @@ export const useResultStore = defineStore('results', () => {
     results.value = data
   }
 
+  function reset() {
+    results.value = [];
+  }
+
   return {
     results,
     setResults,
+    reset,
   }
 })

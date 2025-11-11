@@ -4,13 +4,14 @@ import { useCalculatorForm } from '../../stores/calculatorForm'
 import { ConfirmationModalState } from '../../types/dialogs/confirmationModalState'
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
+import { useResultStore } from '../../stores/resultStore'
 
 export async function newForm(
   askForSaveAs: TriStateConfirmationInterface,
   promptForName: PromptModalInterface,
 ) {
   const formState = useCalculatorForm()
-
+  const resultStore = useResultStore()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (formState.isDirty()) {
@@ -27,7 +28,10 @@ export async function newForm(
   formState.reset()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  nextTick(() => formState.setDirty(false)) 
+  nextTick(() => {
+    formState.setDirty(false)
+    resultStore.reset();
+  })
 }
 
 export async function fileOpen(
@@ -35,6 +39,7 @@ export async function fileOpen(
   promptForName: PromptModalInterface,
 ) {
   const formState = useCalculatorForm()
+  const resultsStore = useResultStore()
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (formState.isDirty()) {
@@ -57,7 +62,10 @@ export async function fileOpen(
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  nextTick(() => formState.setDirty(false)) 
+  nextTick(() => {
+    formState.setDirty(false)
+    resultsStore.reset();
+  })
 }
 
 export async function fileSaveAs(promptForName: PromptModalInterface) {
