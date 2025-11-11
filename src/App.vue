@@ -11,9 +11,9 @@ import MainMenu from './components/navigation/mainMenu.vue'
       <MainMenu></MainMenu>
     </div>
   </div>
-  <div class="bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-200">
-    <CutsForm></CutsForm>
-    <CutsResults></CutsResults>
+  <div class="bg-white dark:bg-gray-950 text-neutral-900 dark:text-neutral-200 flex flex-col md:flex-row">
+    <CutsForm class="flex-4"></CutsForm>
+    <CutsResults class="flex-1"></CutsResults>
   </div>
 </template>
 
