@@ -32,6 +32,11 @@ const props = defineProps({
         type: Boolean,
         required: false,
         default: false
+    },
+    enabled: {
+        type: Boolean,
+        required: false,
+        default: true
     }
 });
 
@@ -44,14 +49,12 @@ const keyDownHandler = (e: KeyboardEvent) => {
         const key = keys.find((k: string) => !['ctrl', 'shift', 'alt'].includes(k));
         if (ctrl && shift && alt && key === e.key.toLowerCase()) {
             e.preventDefault();
-            if (typeof props.onClick === 'function') {
-                (props.onClick as Function)();
-            }
+            onItemClick(e as unknown as PointerEvent);
         }
     }
 };
 
-const { accesskey, onClick, separator, itemType, icon } = props;
+const { accesskey, separator, itemType, icon, enabled } = props;
 
 const itemTypeValue = computed(() => itemType || 'text-only');
 
@@ -62,6 +65,12 @@ const hasAnyDecoration = computed(() => {
 
     return itemTypeValue.value !== 'text-only';
 })
+
+const onItemClick = (e: PointerEvent) => {
+    if (props.enabled && typeof props.onClick === 'function') {
+        props.onClick(e);
+    }
+};
 
 onMounted(() => {
     document.querySelector('body')?.addEventListener('keydown', keyDownHandler);
@@ -74,8 +83,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <li v-if="!separator" :class="menuItemClasses">
-        <a :class="menuItemButtonClasses" @click="onClick">
+    <li v-if="!separator" :class="[...menuItemClasses, { 'opacity-40 cursor-not-allowed': !enabled }]">
+        <a :class="menuItemButtonClasses" @click="onItemClick" :disabled="!enabled || null">
             <span v-if="hasAnyDecoration" :class="menuItemCheckboxClasses">
                 <img v-if="!!icon" :src="icon" />
                 <template v-else-if="itemTypeValue === 'checkbox' && checked">

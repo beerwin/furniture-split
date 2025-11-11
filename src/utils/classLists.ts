@@ -115,6 +115,8 @@ export const menuItemButtonClasses = [
   'py-2',
   'px-6',
   'flex',
+  'disabled:opacity-40',
+  'disabled:cursor-not-allowed',
 ]
 
 export const menuItemCheckboxClasses = [
