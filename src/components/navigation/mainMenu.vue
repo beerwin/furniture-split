@@ -14,6 +14,20 @@
         </template>
       </MenuItem>
       <MenuItem item-type="text-only">
+        {{ getText('menu.Sheets')}}
+        <template v-slot:submenu>
+          <ul :class="dropDownMenuClasses">
+            <MenuItem @click="addNewSheetClick">
+              {{ getText('menu.SheetsAddPiece') }}
+            </MenuItem>
+            <MenuItem separator></MenuItem>
+            <MenuItem :enabled="!formHasErrors" @click="calculateSheetsClick" :key="`formError-${formHasErrors}`">
+              {{ getText('menu.SheetsCalculateSheets') }}
+            </MenuItem>
+          </ul>
+        </template>
+      </MenuItem>
+      <MenuItem item-type="text-only">
         {{ getText('menu.Language') }}
         <template v-slot:submenu>
           <ul :class="dropDownMenuClasses">
@@ -50,9 +64,9 @@ import { useLangaugeStore } from '../../stores/language'
 import { dropDownMenuClasses } from '../../utils/classLists'
 import { useCalculatorForm } from '../../stores/calculatorForm'
 import PromptModal from '../modals/promptModal.vue'
-import { useTemplateRef } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import TriStateConfirmationModal from '../modals/triStateConfirmationModal.vue'
-import { newForm, fileOpen, fileSaveAs, closeQuery } from '../../controller/cuts/cutsController'
+import { newForm, fileOpen, fileSaveAs, closeQuery, calculateCuts } from '../../controller/cuts/cutsController'
 import type { TriStateConfirmationInterface } from '../../types/dialogs/triStateconfirmationInterface'
 import type { PromptModalInterface } from '../../types/dialogs/promptModalInterface'
 import MenuItem from '../lists/MenuItem.vue'
@@ -65,6 +79,7 @@ const formState = useCalculatorForm()
 const promptForName = useTemplateRef('promptForName')
 const askForSaveAs = useTemplateRef('askForSaveAs')
 const { formName } = storeToRefs(formState)
+const { errorBag, addPart } = formState
 
 async function fileNewClick() {
   await newForm(
@@ -86,6 +101,21 @@ async function fileSaveAsClick() {
 
 async function fileExitClick() {
     window.api?.send('close-query');
+}
+
+const formHasErrors = computed(() => {
+  return errorBag().size > 0;
+});
+
+async function calculateSheetsClick() {
+  if (formHasErrors.value) {
+    return;
+  }
+  calculateCuts();
+}
+
+function addNewSheetClick() {
+  addPart();
 }
 
 window.api?.on('app-close-query', async () => {

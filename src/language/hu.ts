@@ -23,6 +23,9 @@ export const lng = {
     FileRecent: 'Nemrég megnyitva',
     FileExit: 'Kilépés',
     Language: 'Nyelv',
+    Sheets: 'Lapok',
+    SheetsCalculateSheets: 'Lapok számítása',
+    SheetsAddPiece: 'Elem hozzáadása',
   },
   cuts: {
     PageTitle: 'Bútorlap kalkulátor',

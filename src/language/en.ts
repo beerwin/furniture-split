@@ -23,6 +23,9 @@ export const lng = {
     FileRecent: 'Recent',
     FileExit: 'Exit',
     Language: 'Language',
+    Sheets: 'Sheets',
+    SheetsCalculateSheets: 'Calculate Sheets',
+    SheetsAddPiece: 'Add Part',
   },
   cuts: {
     PageTitle: 'Furniture Sheet Calculator',
